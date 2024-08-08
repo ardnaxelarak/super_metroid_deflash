@@ -1,0 +1,16 @@
+varint := length of value in bytes followed by value as little-endian bytes
+
+section := indirectSection | directSection
+
+indirectSection :=
+  01 - indirect
+  varint (offset)
+  byte (bytes to read for length)
+  varint (subsection count)
+  subsection contents
+
+directSection :=
+  00 - direct
+  varint (offset)
+  varint (data length)
+  data contents
