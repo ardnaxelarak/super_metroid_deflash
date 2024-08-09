@@ -1,4 +1,5 @@
 import yaml
+import argparse
 from math import ceil
 
 def adjust_bank(offset, bank=None):
@@ -37,9 +38,15 @@ def output_direct_section(out, section, bank=None):
     for data in section['data']:
         out += [data & 0xFF, (data >> 8) & 0xFF]
 
-stream = open("blah.yaml", "r")
-data = yaml.safe_load(stream)
-stream.close()
+parser = argparse.ArgumentParser(prog="build_glowpatch.py", description="Converts a YAML file into glowpatch format, optionally including IPS files into the patch as well.")
+parser.add_argument("-i", dest="input", required=True, metavar="FILENAME", type=argparse.FileType("r"), help="Input YAML file")
+# parser.add_argument("-p", dest="patches", metavar="FILENAME", type=argparse.FileType("rb"), help="Input IPS files", nargs="*")
+parser.add_argument("-o", dest="output", required=True, metavar="FILENAME", type=argparse.FileType("wb"), help="Output glowpatch file")
+
+args = parser.parse_args()
+
+data = yaml.safe_load(args.input)
+args.input.close()
 
 outdata = []
 
@@ -52,6 +59,5 @@ if 'bank' in data:
 for section in data:
     output_indirect_section(outdata, section, bank)
 
-outstream = open("blah.bin", "wb")
-outstream.write(bytes(outdata))
-outstream.close()
+args.output.write(bytes(outdata))
+args.output.close()
