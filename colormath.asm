@@ -13,3 +13,10 @@ function interpolate_color(x0, x1, t) = \
 		interpolate(get_r(x0),get_r(x1),t),\
 		interpolate(get_g(x0),get_g(x1),t),\
 		interpolate(get_b(x0),get_b(x1),t))
+
+macro interpolate_color_list(t, n, ...)
+	for i = 0..<n>
+		!j #= !i+<n>
+		dw interpolate_color(<...[!i]>, <...[!j]>, <t>)
+	endfor
+endmacro
