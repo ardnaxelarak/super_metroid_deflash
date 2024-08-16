@@ -1,14 +1,9 @@
 !CROCOMIRE_T = 0.3
 
+!CROC_BG_PALETTE = $0000, $7FFF, $0DFF, $08BF, $0895, $086C, $0447, $6B7E
+
 org $A4F6C0
-dw interpolate_color($0000, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($7FFF, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($0DFF, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($08BF, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($0895, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($086C, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($0447, $7FFF, !CROCOMIRE_T)
-dw interpolate_color($6B7E, $7FFF, !CROCOMIRE_T)
+%interpolate_color_list_to_constant(!CROCOMIRE_T, $7FFF, !CROC_BG_PALETTE)
 
 org $A48AA3
 STA.l $7EC300, X ; overwrite palette 0 instead of unnoticable change to palette 5

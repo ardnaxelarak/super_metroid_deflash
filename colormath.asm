@@ -20,3 +20,9 @@ macro interpolate_color_list(t, n, ...)
 		dw interpolate_color(<...[!i]>, <...[!j]>, <t>)
 	endfor
 endmacro
+
+macro interpolate_color_list_to_constant(t, target, ...)
+	for i = 0..sizeof(...)
+		dw interpolate_color(<...[!i]>, <target>, <t>)
+	endfor
+endmacro
