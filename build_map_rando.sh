@@ -1,5 +1,5 @@
 py=py
-asar=asar
+asar=/d/asar191/asar
 flips=flips
 
 set -e
